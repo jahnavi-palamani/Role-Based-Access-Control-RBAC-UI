@@ -1,0 +1,65 @@
+<nz-breadcrumb style="padding: 1.5rem; padding-bottom: 0">
+  <nz-breadcrumb-item>
+    <span nz-icon nzType="home" [routerLink]="'/home'"></span>
+  </nz-breadcrumb-item>
+  <nz-breadcrumb-item>Manage Modules</nz-breadcrumb-item>
+</nz-breadcrumb>
+
+<div class="flex justify-between items-center mt-2 p-4">
+  <div>
+    <nz-input-group [nzSuffix]="suffixIconSearch" nzSearch nzSize="large">
+      <input
+        type="text"
+        nz-input
+        placeholder="Search"
+        [(ngModel)]="searchData"
+        (ngModelChange)="search()"
+      />
+    </nz-input-group>
+    <ng-template #suffixIconSearch>
+      <span nz-icon nzType="search"></span>
+    </ng-template>
+  </div>
+
+  <div>
+    <button nz-button nzType="primary" [routerLink]="['/modules/add']">
+      Add Module
+    </button>
+  </div>
+</div>
+
+<nz-table [nzData]="modules" nzTableLayout="fixed" class="p-4">
+  <thead>
+    <tr>
+      <th *ngFor="let item of tableColumns">{{ item }}</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let module of modules">
+      <td>{{ module.name }}</td>
+      <td>{{ module.description }}</td>
+      <td>{{ module.createdAt | date }}</td>
+      <td class="space-x-2">
+        <span
+          nz-icon
+          nzType="edit"
+          nz-tooltip
+          nzTooltipTitle="Edit"
+          class="cursor-pointer"
+          [routerLink]="['/modules/edit', module._id]"
+        ></span>
+        <span
+          nz-icon
+          nzType="delete"
+          nz-tooltip
+          nzTooltipTitle="Delete"
+          class="cursor-pointer"
+          nz-popconfirm
+          nzPopconfirmTitle="Are you sure delete this module?"
+          nzPopconfirmPlacement="top"
+          (nzOnConfirm)="confirmDelete(module)"
+        ></span>
+      </td>
+    </tr>
+  </tbody>
+</nz-table>

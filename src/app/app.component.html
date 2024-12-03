@@ -1,0 +1,24 @@
+<nz-layout class="min-h-screen bg-white">
+  <!-- Header -->
+  <app-header *ngIf="!isLoginPage"></app-header> <!-- Only show header if not on the login page -->
+
+  <!-- Main Content -->
+  <nz-layout>
+    <nz-content class="overflow-y-auto">
+      <!-- Loader -->
+      <nz-spin
+        *ngIf="isLoading$ | async"
+        nzSimple
+        nzSize="large"
+        class="fixed inset-0 z-50 flex items-center justify-center bg-gray-100 bg-opacity-50"
+      ></nz-spin>
+      <router-outlet></router-outlet>
+    </nz-content>
+  </nz-layout>
+
+  <!-- Footer -->
+  <nz-footer *ngIf="!isLoginPage" style="background-color: #333333; padding: 10px; text-align: center; position: fixed; bottom: 0; width: 100%; box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);">
+    <p style="margin: 0; color: #b0b0b0;">&copy; 2024 RBAC Management System. All rights reserved.</p>
+  </nz-footer>
+
+</nz-layout>
